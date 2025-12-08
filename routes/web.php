@@ -6,6 +6,5 @@ use App\Http\Controllers\TicketController;
 
 Route::get('/widget', [WidgetController::class, 'show'])->name('widget.show');
 
-
-Route::get('/ticket', [TicketController::class, 'index'])->name('ticket.index');
-Route::get('/ticket/{id}', [TicketController::class, 'show'])->name('ticket.show');
+Route::get('/ticket', [TicketController::class, 'index'])->name('tickets.index');
+Route::get('/ticket/{id}', [TicketController::class, 'show'])->name('tickets.show');

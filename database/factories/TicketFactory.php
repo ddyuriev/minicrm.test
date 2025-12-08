@@ -2,19 +2,22 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Customer;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TicketFactory extends Factory
 {
     public function definition(): array
     {
+        $dateOfCreate = fake()->dateTimeBetween('-12 months', 'now');
         return [
             'customer_id' => Customer::factory(),
             'topic' => fake()->sentence(),
             'text' => fake()->paragraph(),
-            'status' => fake()->randomElement([0, 1]),
-            'date_of_response' => fake()->dateTimeBetween('-5 months', '+5 months'),
+            'status' => fake()->randomElement([1, 2, 3]),
+            'created_at' => $dateOfCreate,
+            'date_of_response' => \Carbon\Carbon::instance($dateOfCreate)
+                ->addDays(fake()->numberBetween(1, 14)),
         ];
     }
 }

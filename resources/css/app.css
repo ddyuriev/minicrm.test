@@ -9,3 +9,10 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+.tickets-list .row {
+    margin-left: unset;
+    margin-right: unset;
+}
