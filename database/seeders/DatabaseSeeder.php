@@ -5,6 +5,10 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
+use App\Models\Customer;
+use App\Models\Ticket;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,11 +19,28 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $adminRole   = Role::firstOrCreate(['name' => 'Admin']);
+        $managerRole = Role::firstOrCreate(['name' => 'Manager']);
 
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+            'name' => 'admin',
+            'email' => 'admin@test.com',
+            'password' => Hash::make('a1234567'),
+        ])->assignRole($adminRole);
+        User::factory()->create([
+            'name' => 'manager',
+            'email' => 'mngr@example.org',
+            'password' => Hash::make('m1234567'),
+        ])->assignRole($managerRole);
+
+
+        $customers = Customer::factory(70)->create();
+
+        foreach ($customers as $customer) {
+            Ticket::factory(rand(2, 7))->create([
+                'customer_id' => $customer->id
+            ]);
+        }
+
     }
 }
