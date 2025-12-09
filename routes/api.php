@@ -2,8 +2,8 @@
 
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\WidgetController;
+use App\Http\Controllers\Api\TicketController;
 
 Route::name('api.')->group(function () {
-    Route::post('/tickets', [WidgetController::class, 'store'])->name('widget.store');
+    Route::post('/tickets', [TicketController::class, 'store'])->name('widget.store');
 });

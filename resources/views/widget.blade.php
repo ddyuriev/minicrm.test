@@ -40,7 +40,13 @@
         <input type="email" name="email" placeholder="email">
     </div>
     <div class="form-row">
-        <textarea name="message" rows="3" placeholder="message"></textarea>
+        <input type="text" name="phone" placeholder="phone">
+    </div>
+    <div class="form-row">
+        <input type="text" name="topic" placeholder="topic">
+    </div>
+    <div class="form-row">
+        <textarea name="text" rows="3" placeholder="text"></textarea>
     </div>
     <button type="submit">Send</button>
 </form>
@@ -63,11 +69,25 @@
 
         if (response.ok) {
             const data = await response.json();
-            msg.textContent = data.message || 'success';
+            msg.textContent = data.message || 'успешно отправлено';
             form.reset();
-        } else {
-            msg.textContent = 'error';
+            return;
         }
+        if (response.status === 422) {
+            const errorData = await response.json();
+            if (errorData.errors) {
+                let html = '<ul>';
+                Object.values(errorData.errors).forEach(messages => {
+                    messages.forEach(message => {
+                        html += `<li>${message}</li>`;
+                    });
+                });
+                html += '</ul>';
+                msg.innerHTML = html;
+                return;
+            }
+        }
+        msg.innerHTML = '<p>Произошла ошибка отправки</p>';
     });
 </script>
 </body>

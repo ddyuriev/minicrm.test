@@ -9,4 +9,8 @@ use Spatie\Permission\Traits\HasRoles;
 class Customer extends Model
 {
     use HasFactory, HasRoles;
+
+    protected $fillable = [
+        'name', 'email', 'phone'
+    ];
 }

@@ -37,4 +37,9 @@ class TicketRepository
 
         return $ticket->fresh();
     }
+
+    public function create(array $data): Ticket
+    {
+        return Ticket::create($data);
+    }
 }
