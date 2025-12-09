@@ -11,8 +11,4 @@ class WidgetController extends Controller
         return view('widget');
     }
 
-    public function store(Request $request)
-    {
-        return response()->json(['message' => 'Request received']);
-    }
 }

@@ -50,4 +50,23 @@ class Ticket extends Model implements HasMedia
         return route('tickets.files.download', [$this, $file]);
     }
 
+
+    public function scopeCreatedToday($query)
+    {
+        return $query->whereDate('created_at', now()->toDateString());
+    }
+
+    public function scopeCreatedThisWeek($query)
+    {
+        return $query->whereBetween('created_at', [
+            now()->startOfWeek(),
+            now()->endOfWeek(),
+        ]);
+    }
+
+    public function scopeCreatedThisMonth($query)
+    {
+        return $query->whereMonth('created_at', now()->month);
+    }
+
 }
