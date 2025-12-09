@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Ticket extends Model implements HasMedia
 {
@@ -37,6 +38,16 @@ class Ticket extends Model implements HasMedia
     public function customer()
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    public function getFiles()
+    {
+        return $this->media;
+    }
+
+    public function getFileDownloadUrl(Media $file): string
+    {
+        return route('tickets.files.download', [$this, $file]);
     }
 
 }

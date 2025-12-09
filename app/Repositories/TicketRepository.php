@@ -16,4 +16,25 @@ class TicketRepository
 
         return $query->paginate($perPage)->withQueryString();
     }
+
+    public function showTicket(int $id): Ticket
+    {
+        $ticket = Ticket::with([
+            'customer',
+            'media'
+        ])->find($id);
+
+        return $ticket;
+    }
+
+
+    public function updateStatus(int $id, int $status): Ticket
+    {
+        $ticket = Ticket::find($id);
+
+        $ticket->status = $status;
+        $ticket->save();
+
+        return $ticket->fresh();
+    }
 }
