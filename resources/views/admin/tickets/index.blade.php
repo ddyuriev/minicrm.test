@@ -72,11 +72,6 @@
                 </tbody>
             </table>
 
-            @auth
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    ballance: <span id="main-balance">{{ $user->balance->balance }}</span>
-                </a>
-            @endauth
         </div>
 
         <div class="p-3">
